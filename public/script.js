@@ -103,25 +103,26 @@ async function deleteBook() {
 
 async function rateBook() {
 
-  const rating = document.getElementById("ratingValue").value;
-
-  await fetch("/api/books", {
-
-    method: "PATCH",
-
-    headers: {
-      "Content-Type": "application/json"
-    },
-
-    body: JSON.stringify({
-      id: selectedBookId,
-      rating
-    })
-
-  });
-
-  closeModal();
-  loadBook();
-}
+    const ratingInput = document.getElementById("ratingValue").value;
+  
+    const rating = Number(ratingInput);
+  
+    if (isNaN(rating) || rating < 0 || rating > 5) {
+      alert("Please enter a valid rating between 0 and 5");
+      return;
+    }
+  
+    await fetch("/api/books", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: selectedBookId,
+        rating
+      })
+    });
+  
+    closeModal();
+    loadBook(); // refresh the book details to show updated average
+  }
 
 loadBooks();
