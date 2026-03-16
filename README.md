@@ -15,7 +15,7 @@ The main goals of this project were:
 ### Tech Stack
 
 - **Backend:** Node.js, Express.js  
-- **Database:** MongoDB Atlas: [MongoDB Atlas](https://www.mongodb.com/atlas)
+- **Database:** [MongoDB Atlas:](https://www.mongodb.com/atlas)
 - **Architecture:** MVC (Model–View–Controller)  
 - **Data Source:** CSV dataset migrated to MongoDB
 
