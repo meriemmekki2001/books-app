@@ -43,17 +43,39 @@ export async function deleteBook(req,res){
 
 }
 
-export async function rateBook(req,res){
 
-  const book = await BookRepository.getById(req.body.id);
 
-  book.addRating(req.body.rating);
+export async function rateBook(req, res) {
 
-  await BookRepository.update(book.id,{
-    ratings: book.ratings,
-    average_rating: book.average_rating
-  });
-
-  res.status(200).json({message:"Rating added"});
-
-}
+    try {
+  
+      const { id, rating } = req.body;
+  
+      if (rating === undefined || id === undefined) {
+        return res.status(400).json({ message: "Missing id or rating" });
+      }
+  
+      const book = await BookRepository.getById(id);
+  
+     
+      book.ratings = book.ratings || [];
+  
+    
+      book.ratings.push(Number(rating));
+      book.average_rating =
+        book.ratings.reduce((a, b) => a + b, 0) / book.ratings.length;
+  
+  
+      await BookRepository.update(book._id, {
+        ratings: book.ratings,
+        average_rating: book.average_rating
+      });
+  
+      res.status(200).json({ message: "Rating added" });
+  
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  
+  }
