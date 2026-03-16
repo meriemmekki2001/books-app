@@ -15,6 +15,11 @@ The main goals of this project were:
 ### Tech Stack
 
 - **Backend:** Node.js, Express.js  
-- **Database:** MongoDB Atlas  
+- **Database:** MongoDB Atlas: [MongoDB Atlas](https://www.mongodb.com/atlas)
 - **Architecture:** MVC (Model–View–Controller)  
-- **Data Source:** CSV dataset migrated to MongoDB Atlas
+- **Data Source:** CSV dataset migrated to MongoDB
+
+  ## Live Demo
+
+You can access the application here:  
+[Open the Book App](https://books-app-five-iota.vercel.app/)
