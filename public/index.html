@@ -2,22 +2,87 @@
 <html>
 
 <head>
-<title>Books App</title>
+<meta charset="UTF-8">
+<title>Books Database</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>Books Database</h1>
+<div class="container">
 
-<button onclick="addBook()">Add Book</button>
+<h1>📚 Books Database</h1>
+
+<div class="top-bar">
+<button onclick="showAddForm()">➕ Add Book</button>
+</div>
+
+<div class="main">
+
+<div class="selector">
+
+<label>Select a book</label>
 
 <select id="bookList" onchange="loadBook()"></select>
 
-<div id="bookDetails"></div>
+</div>
 
-<button onclick="rateBook()">Rate</button>
-<button onclick="deleteBook()">Delete</button>
+<div id="bookDetails" class="card">
+
+<p>Select a book to see details</p>
+
+</div>
+
+<div class="actions">
+
+<button onclick="showRateForm()">⭐ Rate</button>
+<button onclick="deleteBook()">🗑 Delete</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Add Book Modal -->
+
+<div id="addModal" class="modal">
+
+<div class="modal-content">
+
+<h2>Add Book</h2>
+
+<input id="newTitle" placeholder="Title">
+
+<input id="newAuthors" placeholder="Authors">
+
+<input id="newPublisher" placeholder="Publisher">
+
+<input id="newDate" placeholder="Publication Date">
+
+<button onclick="addBook()">Save</button>
+<button onclick="closeModal()">Cancel</button>
+
+</div>
+
+</div>
+
+<!-- Rate Modal -->
+
+<div id="rateModal" class="modal">
+
+<div class="modal-content">
+
+<h2>Rate Book</h2>
+
+<input id="ratingValue" type="number" min="0" max="5">
+
+<button onclick="rateBook()">Submit</button>
+<button onclick="closeModal()">Cancel</button>
+
+</div>
+
+</div>
 
 <script src="script.js"></script>
 

@@ -6,7 +6,6 @@ async function loadBooks() {
   const books = await res.json();
 
   const select = document.getElementById("bookList");
-
   select.innerHTML = "";
 
   books.forEach(book => {
@@ -30,19 +29,37 @@ async function loadBook() {
   const res = await fetch(`/api/books?id=${id}`);
   const book = await res.json();
 
+  const stars = "⭐".repeat(Math.round(book.average_rating));
+
   document.getElementById("bookDetails").innerHTML = `
-  <p><b>Title:</b> ${book.title}</p>
+  <h2>${book.title}</h2>
   <p><b>Authors:</b> ${book.authors}</p>
   <p><b>Publisher:</b> ${book.publisher}</p>
   <p><b>Publication:</b> ${book.publication_date}</p>
-  <p><b>Average Rating:</b> ${book.average_rating}</p>
+  <p><b>Average Rating:</b> ${book.average_rating.toFixed(2)}</p>
+  <p class="stars">${stars}</p>
   `;
+}
+
+function showAddForm() {
+  document.getElementById("addModal").style.display = "flex";
+}
+
+function showRateForm() {
+  document.getElementById("rateModal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("addModal").style.display = "none";
+  document.getElementById("rateModal").style.display = "none";
 }
 
 async function addBook() {
 
-  const title = prompt("Title");
-  const authors = prompt("Authors");
+  const title = document.getElementById("newTitle").value;
+  const authors = document.getElementById("newAuthors").value;
+  const publisher = document.getElementById("newPublisher").value;
+  const publication_date = document.getElementById("newDate").value;
 
   await fetch("/api/books", {
 
@@ -54,11 +71,14 @@ async function addBook() {
 
     body: JSON.stringify({
       title,
-      authors
+      authors,
+      publisher,
+      publication_date
     })
 
   });
 
+  closeModal();
   loadBooks();
 }
 
@@ -83,7 +103,7 @@ async function deleteBook() {
 
 async function rateBook() {
 
-  const rating = prompt("Enter rating (0-5)");
+  const rating = document.getElementById("ratingValue").value;
 
   await fetch("/api/books", {
 
@@ -100,6 +120,7 @@ async function rateBook() {
 
   });
 
+  closeModal();
   loadBook();
 }
 
